@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 import queue
 from typing import List
 from typing_extensions import Self
-from unicodedata import name
 
 
 class Graph(ABC):
