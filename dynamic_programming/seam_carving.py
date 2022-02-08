@@ -9,16 +9,23 @@ def vertical_seam_carving(energies: list[list[int]], width: int, height: int):
 
             # if position is at the left edge
             if j == 0:
-                predecessors = [(dp[i + 1][j], (i + 1, j)),
-                                (dp[i + 1][j + 1], (i + 1, j + 1))]
+                predecessors = [
+                    (dp[i + 1][j], (i + 1, j)),
+                    (dp[i + 1][j + 1], (i + 1, j + 1)),
+                ]
             # if position is at the right edge
             elif j == len(dp[0]) - 1:
-                predecessors = [(dp[i + 1][j], (i + 1, j)),
-                                (dp[i + 1][j - 1], (i + 1, j - 1))]
+                predecessors = [
+                    (dp[i + 1][j], (i + 1, j)),
+                    (dp[i + 1][j - 1], (i + 1, j - 1)),
+                ]
             # if position is in the middle
             else:
-                predecessors = [(dp[i + 1][j - 1], (i + 1, j - 1)),
-                                (dp[i + 1][j], (i + 1, j)), (dp[i + 1][j + 1], (i + 1, j + 1))]
+                predecessors = [
+                    (dp[i + 1][j - 1], (i + 1, j - 1)),
+                    (dp[i + 1][j], (i + 1, j)),
+                    (dp[i + 1][j + 1], (i + 1, j + 1)),
+                ]
 
             dp[i][j] += min(predecessors)[0]
             # Link the current position to the predecessor with the lowest energy
@@ -53,16 +60,23 @@ def horizontal_seam_carving(energies: list[list[int]], width: int, height: int):
             predecessors = []
             # if position is at the top edge
             if j == 0:
-                predecessors = [(dp[j][i + 1], (j, i + 1)),
-                                (dp[j + 1][i + 1], (j + 1, i + 1))]
+                predecessors = [
+                    (dp[j][i + 1], (j, i + 1)),
+                    (dp[j + 1][i + 1], (j + 1, i + 1)),
+                ]
             # if position is at the bottom edge
             elif j == height - 1:
-                predecessors = [(dp[j][i + 1], (j, i + 1)),
-                                (dp[j - 1][i + 1], (j - 1, i + 1))]
+                predecessors = [
+                    (dp[j][i + 1], (j, i + 1)),
+                    (dp[j - 1][i + 1], (j - 1, i + 1)),
+                ]
             # if position is in the middle
             else:
-                predecessors = [(dp[j][i + 1], (j, i + 1)),
-                                (dp[j - 1][i + 1], (j - 1, i + 1)), (dp[j + 1][i + 1], (j + 1, i + 1))]
+                predecessors = [
+                    (dp[j][i + 1], (j, i + 1)),
+                    (dp[j - 1][i + 1], (j - 1, i + 1)),
+                    (dp[j + 1][i + 1], (j + 1, i + 1)),
+                ]
 
             dp[j][i] += min(predecessors)[0]
             # Link the current position to the predecessor with the lowest energy
@@ -91,11 +105,11 @@ def horizontal_seam_carving(energies: list[list[int]], width: int, height: int):
 # Example.
 if __name__ == "__main__":
     energies = [
-        [0, 75,  6,  3, 75],
-        [3,  0, 75, 75, 75],
-        [75, 75,  0,  2, 75],
-        [-50,  1,  1,  0, -5],
-        [75,  4,  75, 2,  7],
+        [0, 75, 6, 3, 75],
+        [3, 0, 75, 75, 75],
+        [75, 75, 0, 2, 75],
+        [-50, 1, 1, 0, -5],
+        [75, 4, 75, 2, 7],
     ]
     vertical_seam_carving(energies, len(energies[0]), len(energies))
     horizontal_seam_carving(energies, len(energies[0]), len(energies))
