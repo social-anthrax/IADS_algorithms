@@ -41,7 +41,7 @@ def viterbi(
     for i in range(n - 1, 0, -1):
         prev_node = prev[i][backtrack_states[0]]
         backtrack_states = [prev_node] + backtrack_states
-        
+
     # # Uncomment to return max probability
     # for state in states:
     #     if mlp[n, state] > max:
