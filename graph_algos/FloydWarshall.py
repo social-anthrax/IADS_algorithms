@@ -11,7 +11,7 @@ class GraphAdjacencyMatrix:
 
 def floyd_warshall(
     G: GraphAdjacencyMatrix,
-) -> tuple[list[list[int]], list[list[int]]]:
+) -> "tuple[list[list[int]], list[list[int]]]":
     # this assumes that the unreachable sections are initialised to math.inf
     d_curr = G.edges
 
@@ -47,10 +47,12 @@ def floyd_warshall(
                     d_next[i][j] = d_curr[i][k] + d_curr[k][j]
                     pi_next[i][j] = pi_curr[k][j]
 
+        d_curr = [row[:] for row in d_next]  # deep copy
+
     return (d_next, pi_next)
 
 
-def reconstruct_path(pi: list[list[int]], start: int, end: int) -> list[int]:
+def reconstruct_path(pi: "list[list[int]]", start: int, end: int) -> "list[int]":
     """
     Given the pi matrix returns the **Indices** for the vertices in the graph.
     You may need to loop through the graph's indices to get the values for path.
@@ -87,4 +89,4 @@ if __name__ == "__main__":
     # we use 4 and 1 when referring to 5 and 2, as the vertices are 1 indexed
     for x in reconstruct_path(pi, 4, 1):
         path.append(graph.vertices[x])
-    print(path)
+    print(path)  # expected [5,4,2]
