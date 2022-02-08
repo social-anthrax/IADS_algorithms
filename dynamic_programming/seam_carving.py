@@ -1,4 +1,4 @@
-def vertical_seam_carving(energies, width, height):
+def vertical_seam_carving(energies: list[list[int]], width: int, height: int):
     history = [[0 for i in range(width)] for j in range(height)]
     dp = energies
 
@@ -43,7 +43,7 @@ def vertical_seam_carving(energies, width, height):
     print("")
 
 
-def horizontal_seam_carving(energies, width, height):
+def horizontal_seam_carving(energies: list[list[int]], width: int, height: int):
     history = [[0 for i in range(width)] for j in range(height)]
     dp = energies
 
