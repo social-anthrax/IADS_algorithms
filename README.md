@@ -6,3 +6,4 @@ Current algorithms and data structures in repo:
 - Quick Sort
 - Floyd-Warshall (Including backtracking)
 - Coin Counting 
+- Viterby Algorithm (Including backtracking)
