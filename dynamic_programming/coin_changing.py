@@ -32,7 +32,7 @@ def fewest_coins(v: int) -> int:
 # minimum-sized solution).
 
 
-def fewest_coins_list(v: int) -> 'list[int]':
+def fewest_coins_list(v: int) -> "list[int]":
     if v in c_list:
         return [v]
     return min(
@@ -73,8 +73,8 @@ INF = 1_000_000_000
 
 
 def fewest_coins_dp(v):
-    k = len(c_list) 
-    c = c_list # 
+    k = len(c_list)
+    c = c_list  #
     C = [INF for _ in range(v + 1)]
     P = [INF for _ in range(v + 1)]
     C[0] = 0
@@ -98,7 +98,7 @@ def fewest_coins_list_dp(v):
             if c[i] <= w and (C[w - c[i]] + 1) < C[w]:
                 C[w] = 1 + C[w - c[i]]
                 P[w] = i
-    temp = v # stores the quantity
+    temp = v  # stores the quantity
     while v > 0:
         i = P[v]
         S[i] = S[i] + 1
