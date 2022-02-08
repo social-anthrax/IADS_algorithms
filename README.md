@@ -5,5 +5,7 @@ Current algorithms and data structures in repo:
 
 - Quick Sort
 - Floyd-Warshall (Including backtracking)
-- Coin Counting
 - Seam-Carving
+- Coin Counting 
+- Viterby Algorithm (Including backtracking)
+- Edit Distance (with string reconstruct borrowed from published solution)
