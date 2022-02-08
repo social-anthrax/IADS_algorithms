@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def edit_distance(s, t):  # s : 1 to m -> 0 to m-1, t : 1 to n -> 0 to n-1
+def edit_distance(s : str, t : str):  # s : 1 to m -> 0 to m-1, t : 1 to n -> 0 to n-1
     m = len(s)
     n = len(t)
     
@@ -44,7 +44,7 @@ def edit_distance(s, t):  # s : 1 to m -> 0 to m-1, t : 1 to n -> 0 to n-1
     # print(b)
     # print(c)
 
-def reconstruct(s,t,a):  # not working, fuck recursion
+def reconstruct(s : str,t : str,a : np.ndarray):  # not working, fuck recursion
     b = ""
     c = ""
     m = len(s)
@@ -73,7 +73,7 @@ def reconstruct(s,t,a):  # not working, fuck recursion
                 c += "-"
                 i -= 1
 
-def reconstruct_rec(s, t, a):  # from editdist_sol.py
+def reconstruct_rec(s : str, t : str, a : list):  # from editdist_sol.py
     def alignS(i,j):
         if (i == 0) and (j == 0):
             return ""
