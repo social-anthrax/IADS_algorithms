@@ -7,5 +7,5 @@ Current algorithms and data structures in repo:
 - Floyd-Warshall (Including backtracking)
 - Seam-Carving
 - Coin Counting 
-- Viterby Algorithm (Including backtracking)
+- Viterbi Algorithm (Including backtracking)
 - Edit Distance (with string reconstruct borrowed from published solution)
