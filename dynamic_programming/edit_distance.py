@@ -40,39 +40,15 @@ def edit_distance(s: str, t: str):  # s : 1 to m -> 0 to m-1, t : 1 to n -> 0 to
     print("s2 : " + t)
 
     reconstruct_rec(s, t, a)
+
+    return d[-1][-1]
     # b,c = reconstruct(s,t,a)
     # print(b)
     # print(c)
 
 
-def reconstruct(s: str, t: str, a: np.ndarray):  # not working, fuck recursion
-    b = ""
-    c = ""
-    m = len(s)
-    n = len(t)
-
-    for i in reversed(range(0, m)):
-        if i == 0:
-            c += t[:j]
-            return b, c
-        for j in reversed(range(0, n)):
-            if j == 0:
-                b += s[:i]
-                return b, c
-
-            if a[i][j] == 0 or a[i][j] == 1:
-                b += s[i]
-                c += t[j]
-                i -= 1
-                j -= 1
-            elif a[i][j] == 2:
-                b += "-"
-                c += t[j]
-                j -= 1
-            elif a[i][j] == 3:
-                b += s[i]
-                c += "-"
-                i -= 1
+def green(s: str):
+    return "\033[92m{}\033[00m".format(s)
 
 
 def reconstruct_rec(s: str, t: str, a: list):  # from editdist_sol.py
@@ -88,7 +64,7 @@ def reconstruct_rec(s: str, t: str, a: list):  # from editdist_sol.py
         elif a[i][j] == 2:
             return alignS(i, j - 1) + "-"
         else:
-            return alignS(i - 1, j) + s[i - 1]
+            return alignS(i - 1, j) + green(s[i - 1])
 
     def alignT(i, j):
         if (i == 0) and (j == 0):
@@ -117,3 +93,4 @@ if __name__ == "__main__":
     # edit_distance("ACCGGTATCCTAGGAC", "ACCTATCT--TAGGAC")
     # edit_distance("ABCDE", "BCDED")
     edit_distance("ACTGGT", "ATGGCT")
+    print(edit_distance("instead", "nested"))
