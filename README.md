@@ -8,6 +8,7 @@ Current algorithms and data structures in repo:
 - Merge Sort
 - Heap Sort
 - Quick Sort
+- Dijkstra (borrowed from https://stackabuse.com/dijkstras-algorithm-in-python/)
 - Floyd-Warshall (Including backtracking)
 - Seam-Carving
 - Coin Counting 
