@@ -112,6 +112,5 @@ def merge_traced(left: List, right: List) -> List: # O(n)
 #     return list(reversed(merged)) # O(n)
 
 if __name__ == "__main__":
-    merge_traced([2,4],[3,5,8])
-    # merge_sort_traced([1, 2, 3, 4, 5])
-    # merge_sort_traced([4, 3, 3, 2, 4, 5, 1])
+    merge_sort_traced([1, 2, 3, 4, 5])
+    merge_sort_traced([4, 3, 3, 2, 4, 5, 1])
