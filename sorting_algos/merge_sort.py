@@ -61,7 +61,7 @@ def merge_traced(left: List, right: List) -> List: # O(n)
     merged = [None] * (len(left) + len(right)) # n = len(left) + len(right)
     i = 0
     j = 0
-    # A1 or B1 each mean 1 new comparison in the lecture implementation
+    # A1 or B1 each mean 1 new comparison in the lecture implementation (not counting comparisons against infinity)
     for k in range(len(left) + len(right)):
         if len(left) > i and len(right) > j:
             if left[i] < right[j]:
