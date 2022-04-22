@@ -1,6 +1,5 @@
 from queue import Queue
 import math
-import pprint
 
 class GraphAdjacencyMatrix:
     def __init__(self, vertices, edges) -> None:
@@ -31,7 +30,6 @@ def bfsFromVertex(G, v, visited, Q):
                 Q.put(w)
 
 def bfs_traced(G: GraphAdjacencyMatrix):
-    pp = pprint.PrettyPrinter(indent=2)
     print("Start:")
     print(str(G))
     visited = [None] * len(G.vertices)

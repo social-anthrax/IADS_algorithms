@@ -1,6 +1,5 @@
 from queue import LifoQueue
 import math
-import pprint
 
 class GraphAdjacencyMatrix:
     def __init__(self, vertices, edges) -> None:
@@ -31,7 +30,6 @@ def dfsFromVertex(G, v, visited, S):
                 S.put(w)
 
 def dfs_traced(G: GraphAdjacencyMatrix):
-    pp = pprint.PrettyPrinter(indent=2)
     print("Start:")
     print(str(G))
     visited = [None] * len(G.vertices)
