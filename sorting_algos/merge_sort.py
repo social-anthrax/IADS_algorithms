@@ -66,19 +66,19 @@ def merge_traced(left: List, right: List) -> List: # O(n)
             if left[i] < right[j]:
                 merged[k] = left[i]
                 i = i + 1
-                print("A", merged)
+                print("A1", merged)
             else:
                 merged[k] = right[j]
                 j = j + 1
-                print("B", merged)
+                print("B1", merged)
         elif len(left) > i:
             merged[k] = left[i]
             i = i + 1
-            print("A", merged)
+            print("A2", merged)
         elif len(right) > j:
             merged[k] = right[j]
             j = j + 1
-            print("B", merged)
+            print("B2", merged)
         else:
             print("Uh oh, this shouldn't happen: i + j > len(left) + len(right)")
     print("merge done", merged)
@@ -111,5 +111,6 @@ def merge_traced(left: List, right: List) -> List: # O(n)
 #     return list(reversed(merged)) # O(n)
 
 if __name__ == "__main__":
-    merge_sort_traced([1, 2, 3, 4, 5])
-    merge_sort_traced([4, 3, 3, 2, 4, 5, 1])
+    merge_traced([2,4],[3,5,8])
+    # merge_sort_traced([1, 2, 3, 4, 5])
+    # merge_sort_traced([4, 3, 3, 2, 4, 5, 1])
