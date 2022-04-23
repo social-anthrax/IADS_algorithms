@@ -1,10 +1,10 @@
 def viterbi(
-    obs: list[int],
-    states: list[int],
-    start_p: list[list[float]],
-    trans_p: list[list[float]],
-    emit_p: list[list[float]],
-) -> list[int]:
+    obs: "list[int]",
+    states: "list[int]",
+    start_p: "list[list[float]]",
+    trans_p: "list[list[float]]",
+    emit_p: "list[list[float]]",
+) -> "list[int]":
     """
     params:
         obs: observed sentence. Passed as a list of indices referring to the language.
