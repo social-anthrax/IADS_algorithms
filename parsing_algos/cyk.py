@@ -8,7 +8,7 @@ class NT:
         self.r = r
 
 class Rule:
-    def __init__(self, LHS: Enum, RHS, terminal: bool = False): # RHS: NT or String
+    def __init__(self, LHS: Enum, RHS, terminal: bool = False): # RHS: NT or str
         self.LHS = LHS
         self.RHS = RHS
         self.terminal = terminal
