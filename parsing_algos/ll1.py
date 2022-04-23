@@ -15,7 +15,6 @@ class Rule:
         self.terminal = terminal
 
 def ll1_parse(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict) -> bool:
-    i = 0
     terminals = parse_cols
     if S in terminals:
         return Exception("Error: start symbol is terminal")
@@ -39,15 +38,12 @@ def ll1_parse(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols:
                 if not x in terminals:
                     return Exception("Error 2: terminal expected", x, "found")
                 return Exception("Error 2: expected", x, "found", in_str[pos])
-        i = i + 1
-        # if i > 2: break
     if in_str[pos] == "$":
         return True
     else:
         return Exception("Error 3: stack empty before string empty")
 
 def ll1_parse_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict) -> bool:
-    i = 0
     terminals = parse_cols
     if S in terminals:
         return Exception("Error: start symbol is terminal")
@@ -75,15 +71,12 @@ def ll1_parse_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, pars
                     return Exception("Error 2: terminal expected", x, "found")
                 return Exception("Error 2: expected", x, "found", in_str[pos])
         print("stack", stack.queue)
-        i = i + 1
-        # if i > 2: break
     if in_str[pos] == "$":
         return True
     else:
         return Exception("Error 3: stack empty before string empty")
 
 def ll1_parse_lightly_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict) -> bool:
-    i = 0
     terminals = parse_cols
     if S in terminals:
         return Exception("Error: start symbol is terminal")
@@ -92,14 +85,11 @@ def ll1_parse_lightly_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: s
     stack.put(S)
     while not stack.empty():
         x = stack.queue[-1]
-        # print("x", x)
         if x not in terminals:  # Lookup case
-            # print("RHS", table[x][parse_cols[in_str[pos]]].RHS)
             if table[x][parse_cols[in_str[pos]]] == None:
                 return Exception("Error 1: looked up blank cell")
             else:   # rule x -> beta
                 got = stack.get()
-                # print("got", got)
                 for symbol in reversed(table[x][parse_cols[in_str[pos]]].RHS):
                     stack.put(symbol)
         else:   # Match case (x is terminal)
@@ -111,8 +101,6 @@ def ll1_parse_lightly_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: s
                     return Exception("Error 2: terminal expected", x, "found")
                 return Exception("Error 2: expected", x, "found", in_str[pos])
         print("stack", stack.queue)
-        i = i + 1
-        # if i > 2: break
     if in_str[pos] == "$":
         return True
     else:
@@ -123,16 +111,6 @@ if __name__ == "__main__":
         S = auto()
         T = auto()
 
-    # S = LngElem(NTs.S)
-    # T = LngElem(NTs.T)
-    # empty = LngElem("")
-
-    # leftBracket = LngElem("(", True)
-    # rightBracket = LngElem(")", True)
-    # final = LngElem("$", True)
-
-    # parse_rows = {S: 0, T: 1}
-    # parse_cols = {leftBracket.val: 0, rightBracket.val: 1, final.val: 2}
     parse_cols = {"(": 0, ")": 1, "$": 2}
 
     parseTable = {
@@ -149,6 +127,7 @@ if __name__ == "__main__":
         ]
     }
 
+    print(ll1_parse(parseTable, NTs.S, "(())$", parse_cols))
     print(ll1_parse_traced(parseTable, NTs.S, ")$", parse_cols))
     print(ll1_parse_traced(parseTable, NTs.S, "($", parse_cols))
     print(ll1_parse_lightly_traced(parseTable, NTs.S, "(())$", parse_cols))
