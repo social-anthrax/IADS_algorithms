@@ -11,6 +11,7 @@ Current algorithms and data structures in repo:
 - BFS
 - DFS
 - CYK
+- LL(1)
 - Dijkstra (borrowed from https://stackabuse.com/dijkstras-algorithm-in-python/)
 - Floyd-Warshall (Including backtracking)
 - Seam-Carving
