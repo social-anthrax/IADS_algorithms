@@ -15,7 +15,7 @@ sterling_coins = [1, 2, 5, 10, 20, 50, 100, 200]
 
 # Problem (1): Minimum number of coins (as in Lecture 17).
 
-c_list = sterling_coins  # global variable, can set as desired
+c_list = lecture_coins  # global variable, can set as desired
 
 
 # Plain recursive implementation.
@@ -106,6 +106,33 @@ def fewest_coins_list_dp(v):
     return S
 
 
+def fewest_coins_list_dp_traced(v):
+    k = len(c_list)
+    c = c_list
+    S = [0 for _ in range(k)]
+    # fewest coins needed for each v
+    C = [INF for _ in range(v + 1)]
+    # which coin is added here last (from this we can also find which cell in C is the predecessor of the corresponding cell in C)
+    P = [INF for _ in range(v + 1)]
+    C[0] = 0
+    for w in range(1, v + 1):
+        for i in range(k):
+            if c[i] <= w and (C[w - c[i]] + 1) < C[w]:
+                C[w] = 1 + C[w - c[i]]
+                P[w] = i
+                # the first cells of C and P are insignificant; only there to make the indexing nicer
+                print("C", C)
+                print("P", P)
+    temp = v  # stores the quantity
+    while v > 0:
+        i = P[v]
+        S[i] = S[i] + 1
+        v = v - c[i]
+    print("C", C[1:])
+    print("P", P[1:])
+    return S
+
+
 if __name__ == "__main__":
     small_target = 50
     medium_target = 2_500
@@ -121,20 +148,27 @@ if __name__ == "__main__":
     fewest_coins = memoize(fewest_coins)
     # fewest_coins_list = memoize(fewest_coins_list)
 
-    start = time.time()
-    sol = fewest_coins(medium_target)
-    print(f"memoised counting {medium_target} takes {time.time() - start:.2f} seconds.")
-    print(f" ==> {sol} coins are needed.")
+    # start = time.time()
+    # sol = fewest_coins(medium_target)
+    # print(f"memoised counting {medium_target} takes {time.time() - start:.2f} seconds.")
+    # print(f" ==> {sol} coins are needed.")
     # start = time.time()
     # print(fewest_coins_list(medium_target))
     # print(f"memoised listing {medium_target} takes {time.time() - start:.2f} seconds.")
 
-    start = time.time()
-    sol = fewest_coins_dp(target)
-    print(
-        f"dynamic programming counting {target} takes {time.time() - start:.2f} seconds."
-    )
-    print(f" ==> {sol} coins are needed.")
+    # start = time.time()
+    # sol = fewest_coins_dp(target)
+    # print(
+    #     f"dynamic programming counting {target} takes {time.time() - start:.2f} seconds."
+    # )
+    # print(f" ==> {sol} coins are needed.")
     # start = time.time()
     # print(fewest_coins_list_dp(target))
     # print(f"dynamic programming listing {target} takes {time.time() - start:.2f} seconds.")
+
+    start = time.time()
+    sol = fewest_coins_list_dp_traced(small_target)
+    print(
+        f"dynamic programming counting {small_target} takes {time.time() - start:.2f} seconds."
+    )
+    print(f" ==> {sol} coins are needed.")
