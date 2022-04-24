@@ -34,6 +34,34 @@ class Graph:
                             D[neighbor] = new_cost
         return D
 
+    def dijkstra_traced(self, start_vertex):
+        print("Start:")
+        D = {v:float('inf') for v in range(self.v)}
+        D[start_vertex] = 0
+        print("D", D)
+    
+        pq = PriorityQueue()
+        pq.put((0, start_vertex))
+        print("priority queue", pq)
+    
+        while not pq.empty():
+            (dist, current_vertex) = pq.get()
+            self.visited.append(current_vertex)
+    
+            for neighbor in range(self.v):
+                if self.edges[current_vertex][neighbor] != -1:
+                    distance = self.edges[current_vertex][neighbor]
+                    if neighbor not in self.visited:
+                        old_cost = D[neighbor]
+                        new_cost = D[current_vertex] + distance
+                        if new_cost < old_cost:
+                            pq.put((new_cost, neighbor))
+                            D[neighbor] = new_cost
+                print("step")
+                print("D", D)
+                print("priority queue", pq.queue)
+        return D
+
 if __name__ == "__main__":
     g = Graph(9)
     g.add_edge(0, 1, 4)
@@ -52,6 +80,6 @@ if __name__ == "__main__":
     g.add_edge(6, 7, 1)
     g.add_edge(7, 8, 3)
 
-    D = g.dijkstra(0)
+    D = g.dijkstra_traced(0)
     print(D)
     # {0: 0, 1: 4, 2: 11, 3: 17, 4: 9, 5: 22, 6: 7, 7: 8, 8: 11}
