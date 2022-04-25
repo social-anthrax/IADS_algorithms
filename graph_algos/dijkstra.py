@@ -68,7 +68,7 @@ class Graph:
                         if old_cost == float('inf'): print("inf at", neighbor)
                         new_cost = D[current_vertex] + distance
                         if new_cost < old_cost:
-                            # Q.insertItem(d[v ], v) or Q.reduceKey(d[v], v)
+                            # Q.insertItem(d[v], v) or Q.reduceKey(d[v], v)
                             pi[neighbor] = current_vertex
                             pq.put((new_cost, neighbor))
                             D[neighbor] = new_cost
