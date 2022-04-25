@@ -18,3 +18,5 @@ Current algorithms and data structures in repo:
 - Edit Distance (with string reconstruct borrowed from published solution)
 - CYK
 - LL(1)
+
+Furthermore, an implementation for the Max-Heap presented in the lectures can be found here: https://github.com/when-q/Heap
