@@ -14,6 +14,7 @@ class GraphAdjacencyMatrix:
 
 def dfs(G: GraphAdjacencyMatrix):
     visited = [None] * len(G.vertices)
+    # Stack!
     S = LifoQueue()
     for v in range(len(G.vertices)):
         if visited[v] is None:
@@ -33,6 +34,7 @@ def dfs_traced(G: GraphAdjacencyMatrix):
     print("Start:")
     print(str(G))
     visited = [None] * len(G.vertices)
+    # Stack!
     S = LifoQueue()
     print("Q", list(S.queue))
     print("visited", visited)
@@ -41,7 +43,7 @@ def dfs_traced(G: GraphAdjacencyMatrix):
             dfsFromVertex_traced(G, v, visited, S)
 
 def dfsFromVertex_traced(G, v, visited, S):
-    print("bfsFromVertex")
+    print("dfsFromVertex")
     visited[v] = True
     S.put(v)
     print("1 visited", visited)
@@ -69,5 +71,18 @@ if __name__ == "__main__":
 
     vertices = [1, 2, 3, 4, 5]
     graph = GraphAdjacencyMatrix(vertices, weights)
-
     dfs_traced(graph)
+    
+    weights2 = [
+        [0, math.inf, math.inf, math.inf, 1],
+        [1, 0, math.inf, 1, 1],
+        [1, math.inf, 0, 1, 1],
+        [math.inf, math.inf, math.inf, 0, 1],
+        [math.inf, math.inf, math.inf, math.inf, math.inf],
+    ]
+
+    vertices2 = [1, 2, 3, 4, 5]
+    graph2 = GraphAdjacencyMatrix(vertices2, weights2)
+
+
+    dfsFromVertex_traced(graph2, 0, [None] * len(vertices2), LifoQueue())

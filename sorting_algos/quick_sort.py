@@ -41,9 +41,10 @@ def partition_traced(array: List, low: int, high: int):
     for j in range(low, high, 1):
         if array[j] <= pivot:
             i = i + 1
-            print(i)
+            print("swap", i)
             array[i], array[j] = array[j], array[i]
-        print(i, j, array)
+        print("after loop step", i, j, array)
+    print("swap: final, after loop")
     array[i + 1], array[high] = array[high], array[i + 1]  # swap A[i+1] and A[high]
     print(array)
     return i + 1
@@ -60,3 +61,5 @@ print(driver([4, 3, 2, 1, 8, 3, 9, 4, 3, 2, 1, 9, 4, 103, 34, 1234, 4]))
 
 print(driver_traced([9, 4, 2, 5, 1, 8, 4]))
 print(driver_traced([4, 3, 2, 1, 8, 3, 9, 4, 3, 2, 1, 9, 4, 103, 34, 1234, 4]))
+
+print(partition_traced([1,3,11,6,15,7], 0, 5))
