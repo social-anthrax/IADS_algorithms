@@ -98,7 +98,6 @@ def fewest_coins_list_dp(v):
             if c[i] <= w and (C[w - c[i]] + 1) < C[w]:
                 C[w] = 1 + C[w - c[i]]
                 P[w] = i
-    temp = v  # stores the quantity
     while v > 0:
         i = P[v]
         S[i] = S[i] + 1
