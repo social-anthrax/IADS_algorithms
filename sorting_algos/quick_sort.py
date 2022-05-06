@@ -24,7 +24,6 @@ def driver(A: List):
     return A
 
 
-
 def QuickSort_traced(array: List, left: int, right: int):
     print("qs", left, right, array)
     if left < right:
@@ -62,4 +61,4 @@ print(driver([4, 3, 2, 1, 8, 3, 9, 4, 3, 2, 1, 9, 4, 103, 34, 1234, 4]))
 print(driver_traced([9, 4, 2, 5, 1, 8, 4]))
 print(driver_traced([4, 3, 2, 1, 8, 3, 9, 4, 3, 2, 1, 9, 4, 103, 34, 1234, 4]))
 
-print(partition_traced([1,3,11,6,15,7], 0, 5))
+print(partition_traced([1, 3, 11, 6, 15, 7], 0, 5))

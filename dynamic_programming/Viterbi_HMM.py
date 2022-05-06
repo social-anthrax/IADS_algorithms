@@ -1,5 +1,6 @@
 import pprint
 
+
 def viterbi(
     obs: "list[int]",
     states: "list[int]",
@@ -50,6 +51,7 @@ def viterbi(
     #         max = mlp[n, state]
 
     return backtrack_states
+
 
 def viterbi_traced(
     obs: "list[int]",

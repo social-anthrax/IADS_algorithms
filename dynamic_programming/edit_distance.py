@@ -1,9 +1,11 @@
 # Anonymous ArRay 2022 02 08
 # Artemis Livingstone 2022 05 06
 
+
 def prettyPrint(a: list[list]):
     for i in a:
         print(i)
+
 
 def edit_distance(s: str, t: str):  # s : 1 to m -> 0 to m-1, t : 1 to n -> 0 to n-1
     m = len(s)
@@ -20,8 +22,8 @@ def edit_distance(s: str, t: str):  # s : 1 to m -> 0 to m-1, t : 1 to n -> 0 to
         d[0][j] = j
         a[0][j] = 2
 
-# put marker to allow for easier reconstruction. - is used in the textbook
-    a[0][0] = -1  
+    # put marker to allow for easier reconstruction. - is used in the textbook
+    a[0][0] = -1
 
     for i in range(1, m + 1):
         for j in range(1, n + 1):
@@ -42,7 +44,7 @@ def edit_distance(s: str, t: str):  # s : 1 to m -> 0 to m-1, t : 1 to n -> 0 to
 
     print("d:")
     prettyPrint(d)
-    print('')
+    print("")
     print("a:")
     prettyPrint(a)
 
@@ -79,7 +81,7 @@ def reconstruct(s: str, t: str, a: list[list]):
             i -= 1
             distance += 1
         else:
-            assert(False)
+            assert False
 
         marker = a[i][j]
 
@@ -93,6 +95,7 @@ if __name__ == "__main__":
     # edit_distance_traced("ABCDE", "BCDED")
     # edit_distance("ACTGGT", "ATGGCT")
     import sys
+
     if len(sys.argv) != 3:
         print("Run with edit_distance.py string1 string2")
 

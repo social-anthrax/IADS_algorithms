@@ -52,6 +52,7 @@ def floyd_warshall(
 
     return (d_next, pi_next)
 
+
 def floyd_warshall_traced(
     G: GraphAdjacencyMatrix,
 ) -> "tuple[list[list[int]], list[list[int]]]":

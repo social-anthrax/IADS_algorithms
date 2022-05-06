@@ -3,18 +3,25 @@ from queue import LifoQueue
 from enum import Enum, auto
 import pprint
 
+
 class LngElem:
     def __init__(self, val, terminal: bool = False):
         self.val = val
         self.terminal = terminal
 
+
 class Rule:
-    def __init__(self, LHS: LngElem, RHS: "list[LngElem]", terminal: bool = False):   # different from the CYK version!
+    def __init__(
+        self, LHS: LngElem, RHS: "list[LngElem]", terminal: bool = False
+    ):  # different from the CYK version!
         self.LHS = LHS
         self.RHS = RHS
         self.terminal = terminal
 
-def ll1_parse(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict) -> bool:
+
+def ll1_parse(
+    table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict
+) -> bool:
     terminals = parse_cols
     if S in terminals:
         return Exception("Error: start symbol is terminal")
@@ -26,11 +33,11 @@ def ll1_parse(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols:
         if x not in terminals:  # Lookup case
             if table[x][parse_cols[in_str[pos]]] == None:
                 return Exception("Error 1: looked up blank cell")
-            else:   # rule x -> beta
+            else:  # rule x -> beta
                 stack.get()
                 for symbol in reversed(table[x][parse_cols[in_str[pos]]].RHS):
                     stack.put(symbol)
-        else:   # Match case (x is terminal)
+        else:  # Match case (x is terminal)
             if x == in_str[pos]:
                 stack.get()
                 pos += 1
@@ -43,7 +50,10 @@ def ll1_parse(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols:
     else:
         return Exception("Error 3: stack empty before string empty")
 
-def ll1_parse_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict) -> bool:
+
+def ll1_parse_traced(
+    table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict
+) -> bool:
     terminals = parse_cols
     if S in terminals:
         return Exception("Error: start symbol is terminal")
@@ -57,12 +67,12 @@ def ll1_parse_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, pars
             print("RHS", table[x][parse_cols[in_str[pos]]].RHS)
             if table[x][parse_cols[in_str[pos]]] == None:
                 return Exception("Error 1: looked up blank cell")
-            else:   # rule x -> beta
+            else:  # rule x -> beta
                 got = stack.get()
                 print("got", got)
                 for symbol in reversed(table[x][parse_cols[in_str[pos]]].RHS):
                     stack.put(symbol)
-        else:   # Match case (x is terminal)
+        else:  # Match case (x is terminal)
             if x == in_str[pos]:
                 stack.get()
                 pos += 1
@@ -76,7 +86,10 @@ def ll1_parse_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, pars
     else:
         return Exception("Error 3: stack empty before string empty")
 
-def ll1_parse_lightly_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict) -> bool:
+
+def ll1_parse_lightly_traced(
+    table: "dict[Enum, list[Rule]]", S: Enum, in_str: str, parse_cols: dict
+) -> bool:
     terminals = parse_cols
     if S in terminals:
         return Exception("Error: start symbol is terminal")
@@ -88,11 +101,11 @@ def ll1_parse_lightly_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: s
         if x not in terminals:  # Lookup case
             if table[x][parse_cols[in_str[pos]]] == None:
                 return Exception("Error 1: looked up blank cell")
-            else:   # rule x -> beta
+            else:  # rule x -> beta
                 got = stack.get()
                 for symbol in reversed(table[x][parse_cols[in_str[pos]]].RHS):
                     stack.put(symbol)
-        else:   # Match case (x is terminal)
+        else:  # Match case (x is terminal)
             if x == in_str[pos]:
                 stack.get()
                 pos += 1
@@ -106,7 +119,9 @@ def ll1_parse_lightly_traced(table: "dict[Enum, list[Rule]]", S: Enum, in_str: s
     else:
         return Exception("Error 3: stack empty before string empty")
 
+
 if __name__ == "__main__":
+
     class NTs(Enum):
         S = auto()
         T = auto()
@@ -114,17 +129,8 @@ if __name__ == "__main__":
     parse_cols = {"(": 0, ")": 1, "$": 2}
 
     parseTable = {
-        NTs.S: [
-            Rule(NTs.S, [NTs.T, NTs.S]),
-            Rule(NTs.S, []),
-            Rule(NTs.S, [])
-        ],
-
-        NTs.T: [
-            Rule(NTs.T, ["(", NTs.S, ")"]),
-            None,
-            None
-        ]
+        NTs.S: [Rule(NTs.S, [NTs.T, NTs.S]), Rule(NTs.S, []), Rule(NTs.S, [])],
+        NTs.T: [Rule(NTs.T, ["(", NTs.S, ")"]), None, None],
     }
 
     print(ll1_parse(parseTable, NTs.S, "(())$", parse_cols))

@@ -1,5 +1,6 @@
 import pprint
 
+
 def vertical_seam_carving(energies: "list[list[int]]", width: int, height: int):
     history = [[0 for i in range(width)] for j in range(height)]
     dp = energies
@@ -50,6 +51,7 @@ def vertical_seam_carving(energies: "list[list[int]]", width: int, height: int):
     for row in trail:
         print(row)
     print("")
+
 
 def vertical_seam_carving_traced(energies: "list[list[int]]", width: int, height: int):
     pp = pprint.PrettyPrinter(indent=2)
@@ -166,7 +168,10 @@ def horizontal_seam_carving(energies: "list[list[int]]", width: int, height: int
         print(row)
     print("")
 
-def horizontal_seam_carving_traced(energies: "list[list[int]]", width: int, height: int):
+
+def horizontal_seam_carving_traced(
+    energies: "list[list[int]]", width: int, height: int
+):
     pp = pprint.PrettyPrinter(indent=2)
 
     print("Start:")

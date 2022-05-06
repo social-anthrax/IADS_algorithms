@@ -1,17 +1,19 @@
 from typing import List
 
-def merge_sort(arr: List): # O(n*log(n)), Master Theorem
+
+def merge_sort(arr: List):  # O(n*log(n)), Master Theorem
     n = len(arr)
     if n < 2:
         return arr
-    left = merge_sort(arr[:n // 2]) # O(n//2*log(n//2))
-    right = merge_sort(arr[n // 2:]) # O(n//2*log(n//2))
-    return merge(left, right) # O(n)
+    left = merge_sort(arr[: n // 2])  # O(n//2*log(n//2))
+    right = merge_sort(arr[n // 2 :])  # O(n//2*log(n//2))
+    return merge(left, right)  # O(n)
+
 
 # We're merging backwards and then reversing the list because
 # popping from/appending to the front is very inefficient.
-def merge(left: List, right: List) -> List: # O(n)
-    merged = [None] * (len(left) + len(right)) # n = len(left) + len(right)
+def merge(left: List, right: List) -> List:  # O(n)
+    merged = [None] * (len(left) + len(right))  # n = len(left) + len(right)
     i = 0
     j = 0
     for k in range(len(left) + len(right)):
@@ -40,25 +42,27 @@ def merge(left: List, right: List) -> List: # O(n)
     #         merged.extend(right) # O(len(right)) = O(n)
     # return reversed(merged) # O(n)
 
-def merge_sort_traced(arr: List): # O(n*log(n)), Master Theorem
+
+def merge_sort_traced(arr: List):  # O(n*log(n)), Master Theorem
     print("Start:", arr)
     n = len(arr)
     if n < 2:
         print("final:", arr)
         return arr
-    print("left from:", arr[:n // 2])
-    left = merge_sort_traced(arr[:n // 2]) # O(n//2*log(n//2))
-    print("right from:", arr[n // 2:])
-    right = merge_sort_traced(arr[n // 2:]) # O(n//2*log(n//2))
-    return merge_traced(left, right) # O(n)
+    print("left from:", arr[: n // 2])
+    left = merge_sort_traced(arr[: n // 2])  # O(n//2*log(n//2))
+    print("right from:", arr[n // 2 :])
+    right = merge_sort_traced(arr[n // 2 :])  # O(n//2*log(n//2))
+    return merge_traced(left, right)  # O(n)
+
 
 # We're merging backwards and then reversing the list because
 # popping from/appending to the front is very inefficient.
-def merge_traced(left: List, right: List) -> List: # O(n)
+def merge_traced(left: List, right: List) -> List:  # O(n)
     print("merge (L/R)")
     print(left)
     print(right)
-    merged = [None] * (len(left) + len(right)) # n = len(left) + len(right)
+    merged = [None] * (len(left) + len(right))  # n = len(left) + len(right)
     i = 0
     j = 0
     # A1 or B1 each mean 1 new comparison in the lecture implementation (not counting comparisons against infinity)
@@ -92,6 +96,7 @@ def merge_traced(left: List, right: List) -> List: # O(n)
     #         merged.extend(left) # O(len(left)) = O(n)
     #         merged.extend(right) # O(len(right)) = O(n)
     # return reversed(merged) # O(n)
+
 
 # def merge_traced(left: List, right: List) -> List: # O(n)
 #     print("merge (L/R)")

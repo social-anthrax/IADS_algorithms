@@ -8,11 +8,12 @@ def heapsort(arr: List) -> List:
         heappush(h, value)
     return [heappop(h) for i in range(len(h))]
 
+
 def heapsort_traced(arr: List) -> List:
     print("Start:", arr)
     arr = [-x for x in arr]
     n = len(arr)
-    
+
     heapify(arr)
     print("Heapified:", [-x for x in arr])
 
@@ -25,6 +26,7 @@ def heapsort_traced(arr: List) -> List:
 
     print("heapsort done", list(reversed([-x for x in final])))
     return final
+
 
 if __name__ == "__main__":
     heapsort_traced([1, 2, 3, 4, 5])
