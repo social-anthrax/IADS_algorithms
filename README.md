@@ -20,3 +20,6 @@ Current algorithms and data structures in repo:
 - LL(1)
 
 Furthermore, an implementation for the Max-Heap presented in the lectures can be found here: https://github.com/when-q/Heap
+
+## Dependancies. 
+We use poetry for dependancy management, however the only package in use at the moment is pandas. Make sure to install it if you want CYK to work!
