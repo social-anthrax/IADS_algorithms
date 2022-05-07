@@ -1,6 +1,9 @@
-from typing import List
+from ast import arg, parse
+from lib2to3.pgen2 import grammar
+from typing import Dict, List
 from enum import Enum, auto
 import pprint
+import pandas as pd
 
 
 class NT:
@@ -13,7 +16,7 @@ class Rule:
     def __init__(self, LHS: Enum, RHS, terminal: bool = False):  # RHS: NT or str
         self.LHS = LHS
         self.RHS = RHS
-        self.terminal = terminal
+        self.terminal = terminal  # flag to mark node as terminal
 
 
 def cyk(
@@ -44,7 +47,7 @@ def cyk(
 
 def cyk_parser(
     s: List, G: "list[Rule]"
-) -> "list[list[list[tuple(Enum, tuple(int, int), tuple(int, int))]]]":  # G should really be a set of Rules but I cba to fix it rn
+) -> "list[list[list[tuple[Enum, tuple[int, int], tuple[int, int]]]]]":  # G should really be a set of Rules but I cba to fix it rn
     n = len(s)
     table = [[[] for _ in range(n + 1)] for _ in range(n + 1)]
 
@@ -99,14 +102,12 @@ def cyk_traced(s: List, G: "list[Rule]") -> "list[list[list[Enum]]]":
         del table[i][0]
     del table[-1]
 
-    pp = pprint.PrettyPrinter(indent=2)
-    pp.pprint(table)
+    table = pd.DataFrame(table, s, s)
+    print(table)
     return table
 
 
-def cyk_parser_traced(
-    s: List, G: "list[Rule]"
-) -> "list[list[list[tuple(Enum, tuple(int, int), tuple(int, int))]]]":
+def cyk_parser_traced(s: List, G: "list[Rule]"):
     print("Start:", s)
     n = len(s)
     table = [[[] for _ in range(n + 1)] for _ in range(n + 1)]
@@ -137,34 +138,66 @@ def cyk_parser_traced(
         del table[i][0]
     del table[-1]
 
-    pp = pprint.PrettyPrinter(indent=2)
-    pp.pprint(table)
+    table = pd.DataFrame(table, s, s)
+    print(table)
     return table
 
 
+def parseFromFile(file: str, parse: str):
+    grammarRules = extractGrammar(file)
+
+    return cyk_parser_traced(parse.split(), grammarRules)
+
+def cykFromFile(file: str, parse:str):
+    grammarRules = extractGrammar(file)
+    
+    return cyk_traced(parse.split(), grammarRules)
+
+
+def extractGrammar(file):
+    content = []
+    with open(file, "r") as f:
+        content = f.readlines()
+
+    ntsStrings = dict()
+    rules = []
+    for line in content:
+        split = line.split("->")
+        ntsStrings[split[0].strip()] = split[0].strip()
+        rules.append([split[0].strip()] + split[1].split())
+
+    NTs = Enum("NTs", ntsStrings)
+
+    grammarRules = []
+    for rule in rules:
+        # case that rule is a terminal
+        if len(rule) == 2:
+            grammarRules.append(Rule(NTs(rule[0]), rule[1], True))
+        else:
+            grammarRules.append(Rule(NTs(rule[0]), NT(NTs(rule[1]), NTs(rule[2]))))
+    return grammarRules
+
+
+
+
+
 if __name__ == "__main__":
+    from sys import argv
 
-    class NTs(Enum):
-        NP = auto()
-        Nom = auto()
-        AP = auto()
-        A = auto()
-        Det = auto()
-        Adv = auto()
-
-    grammarRules = [
-        Rule(NTs.NP, NT(NTs.Det, NTs.Nom)),
-        Rule(NTs.Nom, "book", True),
-        Rule(NTs.Nom, "orange", True),
-        Rule(NTs.Nom, NT(NTs.AP, NTs.Nom)),
-        Rule(NTs.AP, "heavy", True),
-        Rule(NTs.AP, "orange", True),
-        Rule(NTs.AP, NT(NTs.Adv, NTs.A)),
-        Rule(NTs.A, "heavy", True),
-        Rule(NTs.A, "orange", True),
-        Rule(NTs.Det, "my", True),
-        Rule(NTs.Adv, "very", True),
-    ]
-
-    cyk_parser_traced(["my", "very", "heavy", "orange", "book"], grammarRules)
-    cyk_traced(["my", "very", "heavy", "orange", "book"], grammarRules)
+    # out = cyk_parser(["my", "very", "heavy", "orange", "book"], grammarRules)
+    # print(pprint.pformat(out))
+    # cyk_traced(["my", "very", "heavy", "orange", "book"], grammarRules)
+    if len(argv) == 1:
+        print("Call function using python3 cyk.py inputfile.txt \"String to parse\" outfile.md")
+        print("For example")
+        print("python3 cyk.py input.txt \"I ate the salad with a fork\" out1.md")
+        print("An example input file is provided. The numbers next the terminal/ non terminals indicate where they were taken from")
+        print("Remember that the left side is 0 indexed, the top is 1 indexed.")
+    else:
+        out = parseFromFile(argv[1], argv[2])
+        if len(argv) == 3:
+            
+            out.to_markdown(argv[3])
+        else:
+            out.to_markdown("out.md")
+    

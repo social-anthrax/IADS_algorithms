@@ -6,6 +6,7 @@ authors = ["Artemis Livingstone <ar.d.livingstone@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pandas = "^1.4.2"
 
 [tool.poetry.dev-dependencies]
 

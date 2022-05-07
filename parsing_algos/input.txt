@@ -1,0 +1,14 @@
+S -> NP VP
+PP -> Pre NP
+S -> I X
+X -> VP PP
+NP -> Det N
+VP -> Ate NP
+VP -> ate 
+I -> I
+Det -> the 
+Det -> a 
+N -> fork
+N -> salad
+Pre -> with
+Ate -> ate
