@@ -62,25 +62,27 @@ def ll1_parse_traced(
     stack.put(S)
     while not stack.empty():
         x = stack.queue[-1]
-        print("x", x)
         if x not in terminals:  # Lookup case
-            print("RHS", table[x][parse_cols[in_str[pos]]].RHS)
             if table[x][parse_cols[in_str[pos]]] == None:
                 return Exception("Error 1: looked up blank cell")
             else:  # rule x -> beta
                 got = stack.get()
-                print("got", got)
+                print(
+                    f"Lookup: {in_str[pos]}, {got} => {table[x][parse_cols[in_str[pos]]].RHS}"
+                )
                 for symbol in reversed(table[x][parse_cols[in_str[pos]]].RHS):
                     stack.put(symbol)
         else:  # Match case (x is terminal)
             if x == in_str[pos]:
-                stack.get()
+                print(f"matched: {stack.get()}")  # removes item from stack
                 pos += 1
             else:
                 if not x in terminals:
                     return Exception("Error 2: terminal expected", x, "found")
                 return Exception("Error 2: expected", x, "found", in_str[pos])
-        print("stack", stack.queue)
+        print(f"input: {in_str[pos:]}")
+        print("stack", stack.queue[::-1])
+        print("-" * 10)
     if in_str[pos] == "$":
         return True
     else:
@@ -98,7 +100,7 @@ def ll1_parse_lightly_traced(
     stack.put(S)
     while not stack.empty():
         x = stack.queue[-1]
-        if x not in terminals:  # Lookup case
+        if x not in terminals:  # Lookup case (X is a non terminal)
             if table[x][parse_cols[in_str[pos]]] == None:
                 return Exception("Error 1: looked up blank cell")
             else:  # rule x -> beta
@@ -128,12 +130,19 @@ if __name__ == "__main__":
 
     parse_cols = {"(": 0, ")": 1, "$": 2}
 
+    """
+    e = epsilon
+    __|____(_____|____)___|___$____|
+    S | S -> TS  | S -> e | S -> e |
+    T | T -> (S) |        |        |
+    """
+
     parseTable = {
         NTs.S: [Rule(NTs.S, [NTs.T, NTs.S]), Rule(NTs.S, []), Rule(NTs.S, [])],
         NTs.T: [Rule(NTs.T, ["(", NTs.S, ")"]), None, None],
     }
 
-    print(ll1_parse(parseTable, NTs.S, "(())$", parse_cols))
-    print(ll1_parse_traced(parseTable, NTs.S, ")$", parse_cols))
-    print(ll1_parse_traced(parseTable, NTs.S, "($", parse_cols))
-    print(ll1_parse_lightly_traced(parseTable, NTs.S, "(())$", parse_cols))
+    print(ll1_parse_traced(parseTable, NTs.S, "(())$", parse_cols))
+    # print(ll1_parse_traced(parseTable, NTs.S, ")$", parse_cols))
+    # print(ll1_parse_traced(parseTable, NTs.S, "($", parse_cols))
+    # print(ll1_parse_lightly_traced(parseTable, NTs.S, "(())$", parse_cols))
