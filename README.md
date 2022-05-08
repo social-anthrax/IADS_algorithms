@@ -18,8 +18,13 @@ Current algorithms and data structures in repo:
 - Edit Distance (with string reconstruct borrowed from published solution)
 - CYK
 - LL(1)
-
-Furthermore, an implementation for the Max-Heap presented in the lectures can be found here: https://github.com/when-q/Heap
+- Max-Heap (with basic visualisation) An additional implementation for the Max-Heap presented in the lectures can be found here: https://github.com/when-q/Heap
 
 ## Dependancies. 
-We use poetry for dependancy management, however the only package in use at the moment is pandas. Make sure to install it if you want CYK to work!
+We use poetry for dependancy management, please make sure to use it, as otherwise you could be in dependancy hell! 
+Current dependancies are:
+- python = "^3.8"
+- pandas = "^1.4.2"
+- networkx = "^2.8"
+- matplotlib = "^3.5.2"
+- pydot = "^1.4.2"
